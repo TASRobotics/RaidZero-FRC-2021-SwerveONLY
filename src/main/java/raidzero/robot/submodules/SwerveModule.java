@@ -6,6 +6,7 @@ import raidzero.robot.wrappers.LazyTalonFX;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -86,7 +87,10 @@ public class SwerveModule extends Submodule {
         motor.configMotionAcceleration(SwerveConstants.DEFAULT_TARG_ACCEL);
         motor.configMotionCruiseVelocity(SwerveConstants.DEFAULT_TARG_VELO);
         //This is new - ramp rate
-        motor.configClosedloopRamp(.25);
+        motor.configClosedloopRamp(.1);
+        motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 35, 60, 0.5));
+        motor.configVoltageCompSaturation(12);
+        motor.enableVoltageCompensation(true);
 
         rotor.configFactoryDefault();
         rotor.setInverted(SwerveConstants.ROTOR_INVERSION);

@@ -51,13 +51,13 @@ public class Teleop {
         swerve.fieldOrientedDrive(
             JoystickUtils.deadband(-p.getLeftX()), 
             JoystickUtils.deadband(p.getLeftY()), 
-            JoystickUtils.deadband(p.getRightX())
+            JoystickUtils.deadband(p.getRightX()) * 0.75
         );
         /**
          * DO NOT CONTINUOUSLY CALL THE ZERO FUNCTION its not that bad but the absolute encoders are
          * not good to PID off of so a quick setting of the relative encoder is better
          */
-        if (p.getRawButton(2)) {
+        if (p.getAButton()) {
             swerve.zero();
             return;
         }
